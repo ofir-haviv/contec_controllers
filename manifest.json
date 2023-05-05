@@ -1,0 +1,12 @@
+{
+  "domain": "contec_controllers",
+  "name": "Contec Controllers",
+  "config_flow": true,
+  "documentation": "https://www.home-assistant.io/integrations/contec_controllers",
+  "requirements": ["ContecControllers==1.0.5"],
+  "codeowners": [
+    "@havivi1986"
+  ],
+  "iot_class": "local_polling",
+  "version": "1.0.0"
+}
