@@ -7,6 +7,7 @@ from ContecControllers.ContecOnOffActivation import ContecOnOffActivation
 from ContecControllers.ControllerManager import ControllerManager
 
 from homeassistant.components.light import LightEntity
+from homeassistant.components.light import ColorMode
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -55,6 +56,16 @@ class ContecLight(LightEntity):
     def is_on(self) -> bool:
         """Return true if light is on."""
         return self._onOffActivation.IsOn
+    
+    @property
+    def color_mode(self) -> ColorMode | None:
+        """Return true if light is on."""
+        return ColorMode.ONOFF
+    
+    @property
+    def supported_color_modes(self) -> set[ColorMode] | None:
+        """Return true if light is on."""
+        return [ ColorMode.ONOFF ]
 
     async def async_added_to_hass(self):
         """Subscribe to changes in on/off activation."""
