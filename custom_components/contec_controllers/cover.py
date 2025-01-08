@@ -7,11 +7,9 @@ from ContecControllers.ContecBlindActivation import BlindState, ContecBlindActiv
 from ContecControllers.ControllerManager import ControllerManager
 
 from homeassistant.components.cover import (
+    CoverDeviceClass,
+    CoverEntityFeature,
     ATTR_POSITION,
-    DEVICE_CLASS_BLIND,
-    SUPPORT_CLOSE,
-    SUPPORT_OPEN,
-    SUPPORT_SET_POSITION,
     CoverEntity,
 )
 from homeassistant.config_entries import ConfigEntry
@@ -47,9 +45,9 @@ class ContecCover(CoverEntity):
         self._attr_unique_id = f"{blind_activation.ControllerUnit.UnitId}-{blind_activation.StartActivationNumber}"
         self._attr_name = f"Contec Cover {self._attr_unique_id}"
         self._attr_should_poll = False
-        self._attr_device_class = DEVICE_CLASS_BLIND
+        self._attr_device_class = CoverDeviceClass.SHUTTER
         self._attr_supported_features = (
-            SUPPORT_OPEN | SUPPORT_CLOSE | SUPPORT_SET_POSITION
+            CoverEntityFeature.OPEN | CoverEntityFeature.CLOSE | CoverEntityFeature.SET_POSITION
         )
 
     @property
