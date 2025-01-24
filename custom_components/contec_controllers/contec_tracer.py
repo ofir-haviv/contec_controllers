@@ -16,16 +16,16 @@ class ContecTracer(ITracer):
 
     def TraceVerbose(self, message: str) -> None:
         """Trace verbose message."""
-        self._logger.debug(message)
+        self._logger.debug(f"[ContecController]{message}")
 
     def TraceInformation(self, message: str) -> None:
         """Trace information message."""
-        self._logger.info(message)
+        self._logger.info(f"[ContecController]{message}")
 
     def TraceWarning(self, message: str) -> None:
         """Trace warning message."""
-        self._logger.warn(message)
+        self._logger.warn(f"[ContecController]{message}")
 
     def TraceError(self, message: str) -> None:
         """Trace error message."""
-        self._logger.error(message)
+        self._logger.error(f"[ContecController]{message}")
