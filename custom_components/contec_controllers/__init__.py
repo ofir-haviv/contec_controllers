@@ -23,13 +23,14 @@ _LOGGER = logging.getLogger(__name__)
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up Contec Controllers from a config entry."""
+    _LOGGER.info("Setting up Contec Controller.")
     hass.data.setdefault(DOMAIN, {})
 
     number_of_controllers: int = entry.data["number_of_controllers"]
     controllers_ip: str = entry.data["controllers_ip"]
     controllers_port: int = entry.data["controllers_port"]
     controller_manager: ControllerManager = ControllerManager(
-        ContecTracer(logging.getLogger("ContecControllers")),
+        ContecTracer(_LOGGER),
         ContecConectivityConfiguration(
             number_of_controllers,
             controllers_ip,
@@ -45,16 +46,19 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         await controller_manager.CloseAsync()
         raise ConfigEntryNotReady
 
+    _LOGGER.info("Successfully connected to Contec Controllers. Starts entity discovery.")
     await controller_manager.DiscoverEntitiesAsync()
 
     hass.data[DOMAIN][entry.entry_id] = controller_manager
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
+    _LOGGER.info("Contec Controllers are ready.")
 
     return True
 
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Unload a config entry."""
+    _LOGGER.info("Unloading Contec Controllers.")
     controller_manager: ControllerManager = hass.data[DOMAIN][entry.entry_id]
     if controller_manager is not None:
         await controller_manager.CloseAsync()
@@ -63,4 +67,5 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     if unload_ok:
         hass.data[DOMAIN].pop(entry.entry_id)
 
+    _LOGGER.info("Contec Controllers unloaded.")
     return unload_ok
