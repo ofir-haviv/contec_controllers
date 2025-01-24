@@ -18,7 +18,7 @@ from .contec_tracer import ContecTracer
 
 PLATFORMS = ["light", "cover", "binary_sensor"]
 
-_LOGGER = logging.getLogger(__name__)
+_LOGGER = logging.getLogger("ContecControllers")
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:

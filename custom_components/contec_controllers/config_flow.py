@@ -19,7 +19,7 @@ from homeassistant.exceptions import HomeAssistantError
 from .const import DOMAIN
 from .contec_tracer import ContecTracer
 
-_LOGGER = logging.getLogger(__name__)
+_LOGGER = logging.getLogger("ContecControllers")
 
 STEP_USER_DATA_SCHEMA = vol.Schema(
     {
@@ -39,7 +39,7 @@ async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str,
     controllers_ip: str = data["controllers_ip"]
     controllers_port: int = data["controllers_port"]
     controller_manager: ControllerManager = ControllerManager(
-        ContecTracer(logging.getLogger("ContecControllers")),
+        ContecTracer(_LOGGER),
         ContecConectivityConfiguration(
             number_of_controllers,
             controllers_ip,

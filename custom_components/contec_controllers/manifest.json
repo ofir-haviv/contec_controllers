@@ -8,5 +8,6 @@
     "@havivi1986"
   ],
   "iot_class": "local_polling",
+  "loggers": ["ContecControllers"],
   "version": "1.0.0"
 }
